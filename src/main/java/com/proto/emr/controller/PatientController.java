@@ -21,3 +21,5 @@ public class PatientController {
         return patientService.save(dto);
     }
 }
+
+//Github slack test
