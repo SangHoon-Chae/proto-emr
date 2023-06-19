@@ -1,6 +1,7 @@
 package com.proto.emr.service;
 
 import com.proto.emr.domain.dto.CreatePatient;
+import com.proto.emr.domain.dto.ReadPatient;
 import com.proto.emr.domain.model.Patient;
 import com.proto.emr.repository.PatientRepository;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,10 @@ public class PatientService {
                 .build();
 
         return patientRepository.savePatient(patient);
+    }
+
+    public Patient read(long id) {
+        return patientRepository.readPatient(id);
     }
 }
 

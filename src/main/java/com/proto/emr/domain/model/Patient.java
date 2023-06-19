@@ -8,10 +8,10 @@ import org.springframework.data.domain.Persistable;
 
 //@Builder
 //@AllArgsConstructor(access = AccessLevel.PRIVATE)
-@Getter
+
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Patient implements Persistable<Long>  {
+public class Patient  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(columnDefinition = "int unsigned")
@@ -35,16 +35,6 @@ public class Patient implements Persistable<Long>  {
 
 //    (1) Patient.Builder builder = Patient.builder();
 //    (2) Patient patient = builder.id(1).name("종구").age(30).build();
-
-    @Override
-    public Long getId() {
-        return null;
-    }
-
-    @Override
-    public boolean isNew() {
-        return false;
-    }
 
     public static class Builder {
 

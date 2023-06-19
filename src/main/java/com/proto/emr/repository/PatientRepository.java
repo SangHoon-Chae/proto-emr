@@ -15,5 +15,7 @@ public class PatientRepository {
     public Patient savePatient(Patient patient) {
         return this.crudRepository.save(patient);
     }
-
+    public Patient readPatient(long id) {
+        return this.crudRepository.findById(4L).orElse(null);
+    }
 }
