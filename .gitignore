@@ -7,6 +7,10 @@
 /dataSources/
 /dataSources.local.xml
 .idea/
+/build
 .gradle/
 gradle/wrapper/gradle-wrapper.jar
 logs/
+/out
+
+
