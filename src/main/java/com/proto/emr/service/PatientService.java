@@ -8,6 +8,8 @@ import com.proto.emr.domain.model.Patient;
 import com.proto.emr.repository.PatientRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PatientService {
     private final PatientRepository patientRepository;
@@ -28,8 +30,32 @@ public class PatientService {
         return patientRepository.savePatient(patient);
     }
 
-    public Patient read(long id) {
-        return patientRepository.readPatient(id);
+    // CreatePatientRes
+    // ReadPatientRes
+    public ReadPatientRes read(long id) {
+        Patient patient = patientRepository.readPatient(id);
+        return ReadPatientRes.from(patient);
+    }
+
+    public List<ReadPatientRes> readAll() {
+        List<Patient> patients = patientRepository.readPatients();
+        return ReadPatientRes.from(patients);
+    }
+
+    public Patient update (UpdatePatient dto, long id) {
+        dto.setId(id);
+        String name = dto.getName();
+        long age = dto.getAge();
+        String sex = dto.getSex();
+
+        Patient patient = Patient.builder()
+                .id(id)
+                .name(name)
+                .age(age)
+                .sex(sex)
+                .build();
+
+        return patientRepository.updatePatient(patient);
     }
 }
 
