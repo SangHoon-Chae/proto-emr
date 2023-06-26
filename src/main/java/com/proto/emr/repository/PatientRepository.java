@@ -16,6 +16,7 @@ public class PatientRepository {
         return this.crudRepository.save(patient);
     }
     public Patient readPatient(long id) {
-        return this.crudRepository.findById(4L).orElse(null);
+        return this.crudRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "NOT_FOUND_PATIENT"));
     }
 }

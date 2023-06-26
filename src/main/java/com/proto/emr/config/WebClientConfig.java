@@ -6,7 +6,7 @@ public class WebClientConfig {
 
     public WebClientConfig(WebClientProperties properties) {
         this.properties = properties;
-        log.info("base-uri : {}", properties.getTokenServer().getBaseUri());
+//        log.info("base-uri : {}", properties.getTokenServer().getBaseUri());
     }
 
     /*

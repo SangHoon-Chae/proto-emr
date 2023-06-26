@@ -11,6 +11,7 @@ import org.springframework.data.domain.Persistable;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
 public class Patient  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,10 +24,14 @@ public class Patient  {
     @Column(columnDefinition = "int unsigned")
     private Long age;
 
+    @Column(nullable = true, columnDefinition = "varchar(128)")
+    private String sex;
+
     private Patient(Builder builder) {
         this.id = builder.id;
         this.name = builder.name;
         this.age = builder.age;
+        this.sex = builder.sex;
     }
 
     public static Builder builder() {
@@ -43,6 +48,8 @@ public class Patient  {
         private String name;
 
         private Long age;
+
+        private String sex;
 
         Builder() {
         }
@@ -61,6 +68,11 @@ public class Patient  {
             this.age = age;
             return this;
         }
+        public Builder sex(String sex) {
+            this.sex = sex;
+            return this;
+        }
+
 
         public Patient build() {
             return new Patient(this);

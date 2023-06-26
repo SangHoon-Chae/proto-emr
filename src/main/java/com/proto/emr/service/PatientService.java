@@ -2,13 +2,14 @@ package com.proto.emr.service;
 
 import com.proto.emr.domain.dto.CreatePatient;
 import com.proto.emr.domain.dto.ReadPatient;
+import com.proto.emr.domain.dto.ReadPatientRes;
+import com.proto.emr.domain.dto.UpdatePatient;
 import com.proto.emr.domain.model.Patient;
 import com.proto.emr.repository.PatientRepository;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PatientService {
-
     private final PatientRepository patientRepository;
 
     public PatientService(PatientRepository patientRepository) {

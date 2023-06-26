@@ -23,10 +23,9 @@ public class PatientController {
         return patientService.save(dto);
     }
 
-    @GetMapping("/read")
-    public Patient readData()  {
-        Patient p = patientService.read(3);
-        return patientService.read(3);
+    @GetMapping("/patients")
+    public List<ReadPatientRes> allPatients()  {
+        return patientService.readAll();
     }
 }
 
