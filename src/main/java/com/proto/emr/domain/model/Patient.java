@@ -1,8 +1,14 @@
 package com.proto.emr.domain.model;
 
+import com.proto.emr.domain.dto.UpdatePatient;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.domain.Persistable;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import java.time.LocalDateTime;
 
 //entity class. (도메인 클래스 - table 과 매핑)
 
@@ -12,6 +18,7 @@ import org.springframework.data.domain.Persistable;
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+@EntityListeners(AuditingEntityListener.class)
 public class Patient  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,14 +31,44 @@ public class Patient  {
     @Column(columnDefinition = "int unsigned")
     private Long age;
 
-    @Column(nullable = true, columnDefinition = "varchar(128)")
+    @Column(nullable = false, columnDefinition = "varchar(128)")
     private String sex;
+
+//    @CreatedDate
+//    @Column(updatable = false, nullable = false)
+    @CreatedDate
+    private String createdAt;
+
+    @LastModifiedDate
+    private String updatedAt;
+
+    //논리적 삭제
+    @Column(nullable = false, columnDefinition = "boolean")
+    private Boolean deleted;
+
+//    private DateTime createdDate;
+//    private DateTime updatedDate;
 
     private Patient(Builder builder) {
         this.id = builder.id;
         this.name = builder.name;
         this.age = builder.age;
         this.sex = builder.sex;
+        this.createdAt = builder.createdAt;
+        this.updatedAt = builder.updatedAt;
+        this.deleted = false;
+    }
+
+    public void update(UpdatePatient p) {
+        if (p.getName() != null) {
+            this.name = p.getName();
+        }
+        if (p.getAge() != null) {
+            this.age = p.getAge();
+        }
+        if (p.getSex() != null) {
+            this.sex = p.getSex();
+        }
     }
 
     public static Builder builder() {
@@ -51,6 +88,9 @@ public class Patient  {
 
         private String sex;
 
+        private String createdAt;
+        private String updatedAt;
+
         Builder() {
         }
 
@@ -58,6 +98,16 @@ public class Patient  {
             this.id = id;
             return this;
         }
+
+        public Builder createdAt(String createdAt) {
+            this.createdAt = createdAt;
+            return this;
+        }
+        public Builder updatedAt(String updatedAt) {
+            this.updatedAt = updatedAt;
+            return this;
+        }
+
 
         public Builder name(String name) {
             this.name = name;
@@ -77,7 +127,6 @@ public class Patient  {
         public Patient build() {
             return new Patient(this);
         }
-
     }
 
 }

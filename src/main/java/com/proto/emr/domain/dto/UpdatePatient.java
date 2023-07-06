@@ -1,16 +1,27 @@
 package com.proto.emr.domain.dto;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.annotation.Nullable;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 public class UpdatePatient {
-    private long id;
+    @Nullable
     private String name;
-    private long age;
+
+    // Long: 레퍼 객체, long:원시 타입
+    @Nullable
+    private Long age;
+
+    @Nullable
     private String sex;
+    private boolean delete;
+
+    @Nullable
+    private Long updateAt;
+
+    public boolean isEmpty() {
+        return this.name == null && this.age == null && this.sex == null;
+    }
 }

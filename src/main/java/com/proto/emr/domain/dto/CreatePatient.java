@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 // 환자를 생성하는 인자값.
 //@Builder
 @Getter
@@ -17,4 +19,6 @@ public class CreatePatient {
     private long id;
     private String name;
     private long age;
+    private String sex;
+    private Long createAt;
 }

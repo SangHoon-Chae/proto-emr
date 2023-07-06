@@ -9,6 +9,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.lang.reflect.UndeclaredThrowableException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class PatientRepository {
@@ -36,9 +37,34 @@ public class PatientRepository {
     }
 
     public Patient updatePatient(Patient patient) {
-        Patient pt;
-//        if(this.crudRepository.existsById(patient.getId())) {
-            return this.crudRepository.save(patient);
+            int result = this.crudRepository.updatePatient(patient.getId(), patient.getName(), patient.getAge(), patient.getSex());
+            if (result <= 0) {
+                throw new RuntimeException("UPDATE_PATIENT_ERROR");
+            }
+            return patient;
 //        }
+    }
+
+    public Patient findById(long id) {
+        // Optional<T>.get() -> null or T
+        /*
+            Optional<Patient> optionalPatient = this.crudRepository.findById(id);
+            if (optionalPatient.isPresent()) {
+                return optionalPatient.get();
+            } else {
+                throw new RuntimeException("Patient (" + id + ") : NOT FOUND");
+            }
+         */
+
+        return this.crudRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Patient (" + id + ") : NOT FOUND"));
+    }
+
+    public Patient deletePatientById(long id) {
+        Patient returnPatient = this.crudRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Patient (" + id + ") : NOT FOUND"));
+        crudRepository.deleteById(id);
+
+        return returnPatient;
     }
 }

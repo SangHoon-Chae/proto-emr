@@ -9,6 +9,7 @@ import com.proto.emr.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class PatientController {
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/patient/save")
+    @PostMapping("/patients")
     public Patient saveData(@RequestBody CreatePatient dto)  {
         return patientService.save(dto);
     }
@@ -37,10 +38,18 @@ public class PatientController {
         return patientService.read(patientId);
     }
 
-    @PostMapping("/patient/update/{patientId}")
+    @PutMapping ("/patients/{patientId}")
+    //Replace 는 put. 리소스 설계를 할 때 기본적으로 도메인 이름은 복수가 낫다.
     public Patient update(@RequestBody UpdatePatient dto, @PathVariable long patientId) {
+        if (dto == null || dto.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "UpdatePatient is empty");
+        }
         return patientService.update(dto, patientId);
     }
-}
 
-//Github slack test
+    @DeleteMapping("/{patientId}/delete")
+    public Patient delete(@PathVariable long patientId) {
+        Patient deleted = patientService.deletePatient(patientId);
+        return deleted;
+    }
+}
