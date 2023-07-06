@@ -37,7 +37,7 @@ import java.time.LocalDateTime;
 @Where(clause = "deleted = false")
 @SQLDelete(sql = "update Patient p set p.deleted = true where p.id = ?")
 @EntityListeners(AuditingEntityListener.class)
-public class Patient {
+public class Patient extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(columnDefinition = "int unsigned")
