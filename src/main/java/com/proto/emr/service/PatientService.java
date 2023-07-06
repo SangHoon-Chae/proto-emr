@@ -78,4 +78,10 @@ public class PatientService {
     public Patient deletePatient(long patientId) {
         return patientRepository.deletePatientById(patientId);
     }
+
+    @Transactional
+    public void softDeletePatient(long patientId) {
+        patientRepository.softDeletePatientById(patientId);
+    }
+
 }

@@ -47,9 +47,15 @@ public class PatientController {
         return patientService.update(dto, patientId);
     }
 
-    @DeleteMapping("/{patientId}/delete")
-    public Patient delete(@PathVariable long patientId) {
-        Patient deleted = patientService.deletePatient(patientId);
-        return deleted;
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/patients/{patientId}")
+    public void delete(@PathVariable long patientId) {
+        patientService.deletePatient(patientId);
     }
+
+    @DeleteMapping("/patients/{patientId}/soft")
+    public void softDelete(@PathVariable long patientId) {
+        patientService.softDeletePatient(patientId);
+    }
+
 }

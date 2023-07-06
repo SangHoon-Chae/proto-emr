@@ -16,10 +16,6 @@ public class UpdatePatient {
 
     @Nullable
     private String sex;
-    private boolean delete;
-
-    @Nullable
-    private Long updateAt;
 
     public boolean isEmpty() {
         return this.name == null && this.age == null && this.sex == null;

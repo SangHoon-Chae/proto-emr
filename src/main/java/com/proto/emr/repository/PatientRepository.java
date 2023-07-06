@@ -67,4 +67,11 @@ public class PatientRepository {
 
         return returnPatient;
     }
+
+    public void softDeletePatientById(long id) {
+        if (!this.crudRepository.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "NO_USER (" + id + ")");
+        }
+        crudRepository.softDeleteById(id);
+    }
 }

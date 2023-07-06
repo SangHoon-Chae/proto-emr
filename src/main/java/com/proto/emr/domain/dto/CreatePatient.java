@@ -14,11 +14,9 @@ import java.time.LocalDateTime;
 //@Builder
 @Getter
 public class CreatePatient {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+
     private String name;
     private long age;
     private String sex;
-    private Long createAt;
+
 }

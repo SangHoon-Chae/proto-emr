@@ -1,8 +1,14 @@
 package com.proto.emr.domain.model;
 
 import com.proto.emr.domain.dto.UpdatePatient;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+import org.springframework.beans.factory.DisposableBean;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.domain.Persistable;
@@ -15,11 +21,23 @@ import java.time.LocalDateTime;
 //@Builder
 //@AllArgsConstructor(access = AccessLevel.PRIVATE)
 
+/* Bean, Entity 생명주기
+    interface -> InitializingBean, DisposableBean
+    @PostConstruct
+    @PreDestroy
+    @PreUpdate
+    @PrePersist
+    @PreRemove
+    @Post...
+*/
+
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+@Where(clause = "deleted = false")
+@SQLDelete(sql = "update Patient p set p.deleted = true where p.id = ?")
 @EntityListeners(AuditingEntityListener.class)
-public class Patient  {
+public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(columnDefinition = "int unsigned")
@@ -46,7 +64,12 @@ public class Patient  {
     @Column(nullable = false, columnDefinition = "boolean")
     private Boolean deleted;
 
-//    private DateTime createdDate;
+    // TODO: 응답 값에 포함되면 안됨.
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    //    private DateTime createdDate;
 //    private DateTime updatedDate;
 
     private Patient(Builder builder) {
