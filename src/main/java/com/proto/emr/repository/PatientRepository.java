@@ -13,7 +13,6 @@ import java.util.Optional;
 
 @Repository
 public class PatientRepository {
-
     private final PatientCrudRepository crudRepository;
 
     public PatientRepository(PatientCrudRepository crudRepository) {
@@ -37,12 +36,11 @@ public class PatientRepository {
     }
 
     public Patient updatePatient(Patient patient) {
-            int result = this.crudRepository.updatePatient(patient.getId(), patient.getName(), patient.getAge(), patient.getSex());
+            int result = this.crudRepository.updatePatient2(patient.getId(), patient.getName(), patient.getAge(), patient.getSex());
             if (result <= 0) {
                 throw new RuntimeException("UPDATE_PATIENT_ERROR");
             }
             return patient;
-//        }
     }
 
     public Patient findById(long id) {

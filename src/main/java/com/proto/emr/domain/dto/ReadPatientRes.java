@@ -2,6 +2,7 @@ package com.proto.emr.domain.dto;
 
 import com.proto.emr.domain.model.Patient;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,11 +10,11 @@ public class ReadPatientRes {
     private final Long id;
     private final String name;
     private final Long age;
-    private final String createdAt;
+    private final LocalDateTime createdAt;
     private final boolean delete;
-    private final String updatedAt;
+    private final LocalDateTime updatedAt;
 
-    private ReadPatientRes(long id, String name, long age, String createdAt, String updatedAt, boolean delete) {
+    private ReadPatientRes(long id, String name, long age, LocalDateTime createdAt, LocalDateTime updatedAt, boolean delete) {
         this.id = id;
         this.name = name;
         this.age = age;
@@ -26,8 +27,8 @@ public class ReadPatientRes {
         long id = patient.getId();
         String name = patient.getName();
         long age = patient.getAge();
-        String createTime = patient.getCreatedAt();
-        String updateTime = patient.getUpdatedAt();
+        LocalDateTime createTime = patient.getCreatedAt();
+        LocalDateTime updateTime = patient.getUpdatedAt();
         Boolean delete = patient.getDeleted();
         return new ReadPatientRes(id, name, age, createTime, updateTime, delete);
     }
@@ -52,10 +53,10 @@ public class ReadPatientRes {
         return name;
     }
 
-    public String getCreateTime() {
+    public LocalDateTime getCreateTime() {
         return createdAt;
     }
-    public String getUpdateTime() {
+    public LocalDateTime getUpdateTime() {
         return updatedAt;
     }
     public boolean getDelete() {

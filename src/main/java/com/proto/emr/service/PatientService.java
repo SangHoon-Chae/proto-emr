@@ -7,11 +7,7 @@ import com.proto.emr.domain.model.Patient;
 import com.proto.emr.repository.PatientRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
-
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -27,15 +23,13 @@ public class PatientService {
         long age = dto.getAge();
         String sex = dto.getSex();
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-hh-mm");
-        Calendar c1 = Calendar.getInstance();
-        String strToday = sdf.format(c1.getTime());
+        LocalDateTime now = LocalDateTime.now();
 
         Patient patient = Patient.builder()
                 .name(name)
                 .age(age)
                 .sex(sex)
-                .createdAt(strToday)
+                .createdAt(now)
                 .build();
 
         return patientRepository.savePatient(patient);
@@ -83,5 +77,4 @@ public class PatientService {
     public void softDeletePatient(long patientId) {
         patientRepository.softDeletePatientById(patientId);
     }
-
 }

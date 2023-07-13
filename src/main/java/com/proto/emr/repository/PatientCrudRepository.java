@@ -15,10 +15,9 @@ public interface PatientCrudRepository extends CrudRepository<Patient, Long> {
     // JPQL => SQL을 동적으로 만들어주는 JPA 문법
     @Modifying(clearAutomatically = true)
     @Query("update Patient p set p.name=:name, p.age=:age, p.sex=:sex where p.id=:id")
-    int updatePatient(long id, String name, long age, String sex);
+    int updatePatient2(long id, String name, long age, String sex);
 
     @Modifying(clearAutomatically = true)
     @Query("update Patient p set p.deleted=true where p.id=:id")
     void softDeleteById(long id);
-
 }

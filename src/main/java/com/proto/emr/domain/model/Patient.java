@@ -34,14 +34,15 @@ import java.time.LocalDateTime;
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-@Where(clause = "deleted = false")
-@SQLDelete(sql = "update Patient p set p.deleted = true where p.id = ?")
+//@Where(clause = "deleted = false")
+//@SQLDelete(sql = "update Patient p set p.deleted = true where p.id = ?")
+//@Table(name = "patient_info")
 @EntityListeners(AuditingEntityListener.class)
 public class Patient extends BaseEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(columnDefinition = "int unsigned")
-    private Long id;
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Column(columnDefinition = "int unsigned")
+//    private Long id;
 
     @Column(nullable = false, columnDefinition = "varchar(128)")
     private String name;
@@ -54,11 +55,11 @@ public class Patient extends BaseEntity {
 
 //    @CreatedDate
 //    @Column(updatable = false, nullable = false)
-    @CreatedDate
-    private String createdAt;
-
-    @LastModifiedDate
-    private String updatedAt;
+//    @CreatedDate
+//    private LocalDateTime createdAt;
+//
+//    @LastModifiedDate
+//    private LocalDateTime updatedAt;
 
     //논리적 삭제
     @Column(nullable = false, columnDefinition = "boolean")
@@ -111,8 +112,8 @@ public class Patient extends BaseEntity {
 
         private String sex;
 
-        private String createdAt;
-        private String updatedAt;
+        private LocalDateTime createdAt;
+        private LocalDateTime updatedAt;
 
         Builder() {
         }
@@ -122,11 +123,11 @@ public class Patient extends BaseEntity {
             return this;
         }
 
-        public Builder createdAt(String createdAt) {
+        public Builder createdAt(LocalDateTime createdAt) {
             this.createdAt = createdAt;
             return this;
         }
-        public Builder updatedAt(String updatedAt) {
+        public Builder updatedAt(LocalDateTime updatedAt) {
             this.updatedAt = updatedAt;
             return this;
         }
@@ -145,7 +146,6 @@ public class Patient extends BaseEntity {
             this.sex = sex;
             return this;
         }
-
 
         public Patient build() {
             return new Patient(this);
